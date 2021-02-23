@@ -52,12 +52,11 @@ class _LoginViewState extends State<LoginView> {
   _demologin() async {
     print('_demologin');
     EasyLoading.show(status: 'loading...');
-
+    await Future.delayed(Duration(seconds: 1));
     try {
-      Timer(Duration(seconds: 1), () {
-        EasyLoading.showSuccess('Sign in successfully');
-        Navigator.pushNamed(context, 'home');
-      });
+      EasyLoading.showSuccess('Sign in successfully');
+
+      Navigator.pushNamed(context, 'home');
     } catch (e) {
       EasyLoading.showError('Sign in failed');
     }

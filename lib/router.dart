@@ -11,14 +11,15 @@ class Router {
       case 'login':
         return MaterialPageRoute(builder: (_) => LoginView());
       case 'home':
-        return MaterialPageRoute(builder: (_) => BranchListView());
+        // return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(builder: (_) => ListScreen());
       case 'detail':
         return MaterialPageRoute(
-            builder: (_) => BranchDetailView(id: settings.arguments));
+            builder: (_) => DetailView(id: settings.arguments));
       case 'camera':
         return MaterialPageRoute(builder: (_) => CameraView());
       case 'qr':
-        return MaterialPageRoute(builder: (_) => CameraView());
+        return MaterialPageRoute(builder: (_) => QRScreen());
       case 'meter':
         return MaterialPageRoute(builder: (_) => MeterDetailView());
       default:

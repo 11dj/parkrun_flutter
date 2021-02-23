@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:parkrun_app/packages.dart';
 import '../../widgets/qrcode.dart';
 
-class BranchDetailView extends StatefulWidget {
-  BranchDetailView({Key key, this.id}) : super(key: key);
+class DetailView extends StatefulWidget {
+  DetailView({Key key, this.id}) : super(key: key);
   final String id;
 
   @override
-  _BranchDetailViewState createState() => _BranchDetailViewState();
+  _DetailViewState createState() => _DetailViewState();
 }
 
-class _BranchDetailViewState extends State<BranchDetailView> {
+class _DetailViewState extends State<DetailView> {
   TextEditingController _searchController = TextEditingController();
   bool isSearch = false;
   static List<String> mainDataList = [];
