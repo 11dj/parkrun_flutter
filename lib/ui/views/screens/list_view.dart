@@ -28,7 +28,7 @@ class _ListScreenState extends State<ListScreen> {
       Timer(Duration(seconds: 1), () {
         setState(() {
           mainDataList =
-              List<String>.generate(1000, (i) => i.toString().padLeft(4, '0'));
+              List<String>.generate(10, (i) => i.toString().padLeft(4, '0'));
           newDataList = List.from(mainDataList);
         });
         EasyLoading.dismiss();
@@ -105,7 +105,7 @@ class _ListScreenState extends State<ListScreen> {
       // backgroundColor: styles.backgroundColor,
       appBar: AppBar(
         backgroundColor: styles.backgroundColor,
-        title: Text('List',
+        title: Text('Park name list',
             style: styles.textTheme.headline4.copyWith(color: Colors.white)),
         actions: [
           if (!isSearch)
@@ -122,9 +122,9 @@ class _ListScreenState extends State<ListScreen> {
           Padding(
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
-                onTap: () => Navigator.pushNamed(context, 'qr'),
+                onTap: () => _logout(),
                 child: Icon(
-                  Icons.qr_code,
+                  Icons.logout,
                   size: 26.0,
                   color: Colors.white,
                 ),
@@ -144,7 +144,7 @@ class _ListScreenState extends State<ListScreen> {
                   hintStyle: TextStyle(fontSize: 20.0),
                   contentPadding: EdgeInsets.all(10.0),
                   border: InputBorder.none,
-                  hintText: 'Enter a search ID/Branch',
+                  hintText: 'Enter a search park',
                   suffixIcon: IconButton(
                     onPressed: () => _clearSearch(),
                     icon: Icon(Icons.clear),
@@ -159,25 +159,47 @@ class _ListScreenState extends State<ListScreen> {
                 final item = newDataList[index];
                 return GestureDetector(
                   onTap: () => Navigator.pushNamed(context, 'detail',
-                      arguments: 'Branch $item'),
+                      arguments: 'Park $item'),
                   child: Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            item,
-                            style: TextStyle(
-                                fontSize: 22.0, fontWeight: FontWeight.bold),
+                    child: Column(
+                      children: [
+                        Container(
+                          color: Colors.blue,
+                          height: 120,
+                          width: double.infinity,
+                          child: Image.asset(
+                            'assets/images/run1.jpg',
+                            fit: BoxFit.fitWidth,
+                            width: 240,
                           ),
-                          Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 2.0)),
-                          Text(
-                            ' Branch',
-                            style: TextStyle(fontSize: 22.0),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Park $item',
+                                    style: TextStyle(
+                                        fontSize: 22.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 2.0)),
+                                  Text(
+                                    ' คนเข้าร่วม 34/40',
+                                    style: TextStyle(fontSize: 22.0),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 );

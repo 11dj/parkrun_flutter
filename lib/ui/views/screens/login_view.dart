@@ -112,6 +112,14 @@ class _LoginViewState extends State<LoginView> {
               ),
               onPressed: () => _logout(),
             ),
+            MaterialButton(
+              minWidth: 120,
+              child: Text(
+                'QR',
+                style: styles.textTheme.button.copyWith(color: Colors.white),
+              ),
+              onPressed: () => Navigator.pushNamed(context, 'qr'),
+            ),
           ],
         ),
       ),

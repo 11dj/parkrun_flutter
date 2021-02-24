@@ -4,11 +4,14 @@ import './colors.dart';
 class CustomStyles {
   // TextStyle fontWhite
 
-  Color color1 = Color.fromRGBO(100, 174, 160, 1);
-  Color color2 = Color.fromRGBO(22, 153, 103, 1);
+  // Color color1 = Color.fromRGBO(100, 174, 160, 1);
+  // Color color2 = Color.fromRGBO(22, 153, 103, 1);
+  Color color1 = Color(0xff16a596);
+  Color color2 = Color(0xff4db6ac);
+  Color color3 = Color(0xffcae4e5);
   ThemeData customThemeData() => ThemeData(
         brightness: Brightness.light,
-        primarySwatch: MaterialColor(MyColors.black[50].value, MyColors.black),
+        // primarySwatch: MaterialColor(Color(0xff16a596).value, Color(0xff16a596).value),
         primaryColor: MyColors.black[500],
         backgroundColor: color1,
         primaryColorBrightness: Brightness.light,

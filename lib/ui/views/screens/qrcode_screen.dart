@@ -18,6 +18,8 @@ class _QRScreenState extends State<QRScreen> {
   QRViewController controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   bool f = false;
+  BuildContext scaffoldContext;
+  List usedList = [];
 
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
@@ -30,8 +32,82 @@ class _QRScreenState extends State<QRScreen> {
     controller.resumeCamera();
   }
 
+  didChangeDependencies() async {
+    print(result);
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
+    scaffoldContext = context;
+    // setState(() {
+    //   scaffoldContext = context;
+    // });
+
+    void createSnackBar(String message) {
+      final snackBar = new SnackBar(
+          content: new Text(message), backgroundColor: Colors.black);
+
+      Scaffold.of(context).showSnackBar(snackBar);
+    }
+
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   print(result);
+    //   if (result != null) createSnackBar('Hello');
+    // });
+
+    Widget _buildQrView(BuildContext context) {
+      // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
+      var scanArea = (MediaQuery.of(context).size.width < 400 ||
+              MediaQuery.of(context).size.height < 400)
+          ? 144.0
+          : 288.0;
+      // To ensure the Scanner view is properly sizes after rotation
+      // we need to listen for Flutter SizeChanged notification and update controller
+      _processX(scanData) async {
+        if (scanData.code == result?.code) return;
+        if (usedList.contains(scanData.code)) return;
+        // print('${scanData.code} is used');
+        print(scanData.code);
+        print('result.code ${result?.code}');
+        setState(() {
+          result = scanData;
+          usedList.add(scanData.code);
+        });
+        // Scaffold.of(context).showSnackBar(
+        //   SnackBar(
+        //     content: Text('Sample snackbar'),
+        //   ),
+        // );
+        createSnackBar('tttt');
+        await Future.delayed(Duration(seconds: 3));
+        setState(() {
+          result = null;
+        });
+        print('ready');
+      }
+
+      void _onQRViewCreated(QRViewController controller) {
+        setState(() {
+          this.controller = controller;
+        });
+        // controller.scannedDataStream.
+        controller.scannedDataStream
+            .listen((scanData) async => _processX(scanData));
+      }
+
+      return QRView(
+        key: qrKey,
+        onQRViewCreated: _onQRViewCreated,
+        overlay: QrScannerOverlayShape(
+            borderColor: Colors.red,
+            borderRadius: 10,
+            borderLength: 30,
+            borderWidth: 10,
+            cutOutSize: scanArea),
+      );
+    }
+
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -45,7 +121,10 @@ class _QRScreenState extends State<QRScreen> {
                 left: 20,
                 child: GestureDetector(
                     onTap: () => Navigator.of(context).pop(),
-                    child: Text('Close')),
+                    child: Text(
+                      'Close',
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    )),
               ),
               Positioned(
                 bottom: 100,
@@ -78,48 +157,17 @@ class _QRScreenState extends State<QRScreen> {
                   ),
                 ),
               ),
+              // FutureBuilder(
+              //   future: result,
+              //   builder: (context, snapshot) {
+              //   return SnackBar(
+              //       content: new Text('Hello'), backgroundColor: Colors.black);
+              // })
             ],
           )),
         ],
       ),
     );
-  }
-
-  Widget _buildQrView(BuildContext context) {
-    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
-    var scanArea = (MediaQuery.of(context).size.width < 400 ||
-            MediaQuery.of(context).size.height < 400)
-        ? 144.0
-        : 288.0;
-    // To ensure the Scanner view is properly sizes after rotation
-    // we need to listen for Flutter SizeChanged notification and update controller
-    return QRView(
-      key: qrKey,
-      onQRViewCreated: _onQRViewCreated,
-      overlay: QrScannerOverlayShape(
-          borderColor: Colors.red,
-          borderRadius: 10,
-          borderLength: 30,
-          borderWidth: 10,
-          cutOutSize: scanArea),
-    );
-  }
-
-  void _onQRViewCreated(QRViewController controller) {
-    setState(() {
-      this.controller = controller;
-    });
-    controller.scannedDataStream.listen((scanData) async {
-      print(scanData.code);
-      controller?.dispose();
-      EasyLoading.show(status: 'loading...');
-      await Future.delayed(Duration(seconds: 1));
-      EasyLoading.dismiss();
-      Navigator.of(context).pop('Helllosss');
-      setState(() {
-        result = scanData;
-      });
-    });
   }
 
   @override

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:parkrun_app/packages.dart';
-import '../../widgets/qrcode.dart';
 
 class DetailView extends StatefulWidget {
   DetailView({Key key, this.id}) : super(key: key);
@@ -56,9 +55,7 @@ class _DetailViewState extends State<DetailView> {
   }
 
   _qrScan() async {
-    var result = await Navigator.of(context).push(PageRouteBuilder(
-        opaque: false,
-        pageBuilder: (BuildContext context, _, __) => QRViewExample()));
+    var result = await Navigator.pushNamed(context, 'qr');
     print(result);
     if (result != null) {
       Navigator.pushNamed(context, 'meter');
@@ -84,15 +81,13 @@ class _DetailViewState extends State<DetailView> {
             SliverAppBar(
               pinned: true,
               backgroundColor: styles.backgroundColor,
-              // title: Text(widget.id),
               title: (!isSearch)
                   ? Text(
-                      'Store\'s meters',
+                      'Park Detail',
                       style: styles.textTheme.headline4
                           .copyWith(color: Colors.white),
                     )
                   : Container(
-                      // color: Colors.white,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -111,7 +106,7 @@ class _DetailViewState extends State<DetailView> {
                         ),
                       ),
                     ),
-              expandedHeight: 180,
+              expandedHeight: 240,
               flexibleSpace: FlexibleSpaceBar(
                 collapseMode: CollapseMode.parallax,
                 centerTitle: true,
@@ -141,10 +136,33 @@ class _DetailViewState extends State<DetailView> {
                         ],
                       ),
                     ),
+                    Container(
+                      margin:
+                          EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 12.0),
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                              child: Icon(Icons.timer, color: Colors.white)),
+                          Padding(padding: EdgeInsets.all(5.0)),
+                          Container(
+                              child: Text(
+                            '22/2/2021 07:00-08:00',
+                            style: styles.textTheme.headline6
+                                .copyWith(color: Colors.white),
+                          )),
+                        ],
+                      ),
+                    ),
                     Row(
                       children: [
                         Flexible(
-                          flex: 3,
+                          flex: 7,
                           child: Container(
                             margin: EdgeInsets.only(
                                 left: 8.0, right: 4.0, bottom: 8.0),
@@ -152,9 +170,8 @@ class _DetailViewState extends State<DetailView> {
                                 horizontal: 12.0, vertical: 12.0),
                             decoration: BoxDecoration(
                               color: Colors.grey,
-                              borderRadius: BorderRadius.all(Radius.circular(
-                                      10.0) //         <--- border radius here
-                                  ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -167,7 +184,7 @@ class _DetailViewState extends State<DetailView> {
                                     Padding(padding: EdgeInsets.all(5.0)),
                                     Container(
                                         child: Text(
-                                      'จำนวนมิเตอร์',
+                                      'จำนวนผู้เข้าร่วม',
                                       style: styles.textTheme.headline6
                                           .copyWith(color: Colors.white),
                                     ))
@@ -184,7 +201,7 @@ class _DetailViewState extends State<DetailView> {
                           ),
                         ),
                         Flexible(
-                          flex: 1,
+                          flex: 3,
                           child: GestureDetector(
                             onTap: () => _qrScan(),
                             child: Container(
@@ -206,7 +223,7 @@ class _DetailViewState extends State<DetailView> {
                                   Padding(padding: EdgeInsets.all(5.0)),
                                   Container(
                                       child: Text(
-                                    'เพิ่ม',
+                                    'แสกน',
                                     style: styles.textTheme.headline6
                                         .copyWith(color: Colors.white),
                                   )),
@@ -247,7 +264,7 @@ class _DetailViewState extends State<DetailView> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Company$item',
+                          Text('คนที่ $item',
                               style: styles.textTheme.headline6
                                   .copyWith(color: Colors.black)),
                           Padding(padding: EdgeInsets.all(3.0)),
@@ -263,14 +280,14 @@ class _DetailViewState extends State<DetailView> {
                                     Row(
                                       children: [
                                         Icon(
-                                          Icons.water_damage_outlined,
+                                          Icons.one_k,
                                           color: Colors.blue,
                                         ),
                                         Padding(padding: EdgeInsets.all(4.0)),
-                                        Text('W$item'),
+                                        Text('Lap #1'),
                                       ],
                                     ),
-                                    Text('200'),
+                                    Text('00:15:00'),
                                   ],
                                 ),
                                 Divider(
@@ -283,14 +300,14 @@ class _DetailViewState extends State<DetailView> {
                                     Row(
                                       children: [
                                         Icon(
-                                          Icons.electrical_services,
+                                          Icons.two_k,
                                           color: Colors.yellow[600],
                                         ),
                                         Padding(padding: EdgeInsets.all(4.0)),
-                                        Text('E$item'),
+                                        Text('Lap #2'),
                                       ],
                                     ),
-                                    Text('200'),
+                                    Text('00:30:00'),
                                   ],
                                 ),
                                 Divider(
@@ -303,14 +320,14 @@ class _DetailViewState extends State<DetailView> {
                                     Row(
                                       children: [
                                         Icon(
-                                          Icons.fireplace,
+                                          Icons.three_k,
                                           color: Colors.green,
                                         ),
                                         Padding(padding: EdgeInsets.all(4.0)),
-                                        Text('G$item'),
+                                        Text('Lap #3'),
                                       ],
                                     ),
-                                    Text('200'),
+                                    Text('00:45:00'),
                                   ],
                                 ),
                               ],
