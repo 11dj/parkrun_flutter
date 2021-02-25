@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "473144066166",
+    "firebase_url": "https://parkrun-th.firebaseio.com",
+    "project_id": "parkrun-th",
+    "storage_bucket": "parkrun-th.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473144066166:android:f4de4995ff0c05141cdf57",
+        "android_client_info": {
+          "package_name": "com.parkrunthailand.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "473144066166-n0a8hrsuv6dqg9ij2m8f68pvcj36obb6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7UhzgQV_lihPiow_0tk6gt4oR4tB9wys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "473144066166-n0a8hrsuv6dqg9ij2m8f68pvcj36obb6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "473144066166-64e9lbqmnb4e68o3gjrastpik0hugq3u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.parkrunthailand.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

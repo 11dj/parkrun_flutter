@@ -4,64 +4,128 @@ PODS:
     - AppAuth/ExternalUserAgent (= 1.3.1)
   - AppAuth/Core (1.3.1)
   - AppAuth/ExternalUserAgent (1.3.1)
-  - camera (0.0.1):
+  - Firebase/Auth (7.3.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 7.3.0)
+  - Firebase/CoreOnly (7.3.0):
+    - FirebaseCore (= 7.3.0)
+  - firebase_auth (0.20.1):
+    - Firebase/Auth (= 7.3.0)
+    - firebase_core
     - Flutter
+  - firebase_core (0.7.0):
+    - Firebase/CoreOnly (= 7.3.0)
+    - Flutter
+  - FirebaseAuth (7.3.0):
+    - FirebaseCore (~> 7.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
+    - GoogleUtilities/Environment (~> 7.0)
+    - GTMSessionFetcher/Core (~> 1.4)
+  - FirebaseCore (7.3.0):
+    - FirebaseCoreDiagnostics (~> 7.0)
+    - GoogleUtilities/Environment (~> 7.0)
+    - GoogleUtilities/Logger (~> 7.0)
+  - FirebaseCoreDiagnostics (7.7.0):
+    - GoogleDataTransport (~> 8.0)
+    - GoogleUtilities/Environment (~> 7.0)
+    - GoogleUtilities/Logger (~> 7.0)
+    - nanopb (~> 2.30907.0)
   - Flutter (1.0.0)
   - flutter_appauth (0.0.1):
     - AppAuth (= 1.3.1)
     - Flutter
+  - flutter_beep (0.0.1):
+    - Flutter
   - flutter_secure_storage (3.3.1):
     - Flutter
+  - GoogleDataTransport (8.2.0):
+    - nanopb (~> 2.30907.0)
+  - GoogleUtilities/AppDelegateSwizzler (7.2.2):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (7.2.2):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/Logger (7.2.2):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/Network (7.2.2):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (7.2.2)"
+  - GoogleUtilities/Reachability (7.2.2):
+    - GoogleUtilities/Logger
+  - GTMSessionFetcher/Core (1.5.0)
   - MTBBarcodeScanner (5.0.11)
-  - path_provider (0.0.1):
-    - Flutter
+  - nanopb (2.30907.0):
+    - nanopb/decode (= 2.30907.0)
+    - nanopb/encode (= 2.30907.0)
+  - nanopb/decode (2.30907.0)
+  - nanopb/encode (2.30907.0)
+  - PromisesObjC (1.2.12)
   - qr_code_scanner (0.2.0):
     - Flutter
     - MTBBarcodeScanner
-  - video_player (0.0.1):
-    - Flutter
 
 DEPENDENCIES:
-  - camera (from `.symlinks/plugins/camera/ios`)
+  - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
   - flutter_appauth (from `.symlinks/plugins/flutter_appauth/ios`)
+  - flutter_beep (from `.symlinks/plugins/flutter_beep/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
-  - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - qr_code_scanner (from `.symlinks/plugins/qr_code_scanner/ios`)
-  - video_player (from `.symlinks/plugins/video_player/ios`)
 
 SPEC REPOS:
   trunk:
     - AppAuth
+    - Firebase
+    - FirebaseAuth
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - GoogleDataTransport
+    - GoogleUtilities
+    - GTMSessionFetcher
     - MTBBarcodeScanner
+    - nanopb
+    - PromisesObjC
 
 EXTERNAL SOURCES:
-  camera:
-    :path: ".symlinks/plugins/camera/ios"
+  firebase_auth:
+    :path: ".symlinks/plugins/firebase_auth/ios"
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
   flutter_appauth:
     :path: ".symlinks/plugins/flutter_appauth/ios"
+  flutter_beep:
+    :path: ".symlinks/plugins/flutter_beep/ios"
   flutter_secure_storage:
     :path: ".symlinks/plugins/flutter_secure_storage/ios"
-  path_provider:
-    :path: ".symlinks/plugins/path_provider/ios"
   qr_code_scanner:
     :path: ".symlinks/plugins/qr_code_scanner/ios"
-  video_player:
-    :path: ".symlinks/plugins/video_player/ios"
 
 SPEC CHECKSUMS:
   AppAuth: 8803ba1aec6d00d9afd30093f82e600307eaa6ea
-  camera: a0ca5080336f7af47b88436e5e26da3dee5568f0
+  Firebase: 26223c695fe322633274198cb19dca8cb7e54416
+  firebase_auth: 7220e26fc14a501a63093edc10443de6bca0d7e8
+  firebase_core: 91b27774a52f41f8b58484a75edf71197ac01c59
+  FirebaseAuth: c224a0cf1afa0949bd5c7bfcf154b4f5ce8ddef2
+  FirebaseCore: 4d3c72622ce0e2106aaa07bb4b2935ba2c370972
+  FirebaseCoreDiagnostics: 179bf3831213451c8addd036aca7fcf5492ec154
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_appauth: a6bf9fa3192a14a981475c4cbe3bcebd3b563144
+  flutter_beep: 54fb393b22dfa0f0e4573c81b1c74dd71c4e5af8
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
+  GoogleDataTransport: 1024b1a4dfbd7a0e92cb20d7e0a6f1fb66b449a4
+  GoogleUtilities: 31c5b01f978a70c6cff2afc6272b3f1921614b43
+  GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
-  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  nanopb: 59221d7f958fb711001e6a449489542d92ae113e
+  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   qr_code_scanner: bb67d64904c3b9658ada8c402e8b4d406d5d796e
-  video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: c66d24c188db8dacab687bcdb2a96514b30d708f
 
 COCOAPODS: 1.10.0

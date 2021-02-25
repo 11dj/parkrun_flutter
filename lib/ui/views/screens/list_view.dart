@@ -12,8 +12,9 @@ class ListScreen extends StatefulWidget {
 class _ListScreenState extends State<ListScreen> {
   TextEditingController _searchController = TextEditingController();
   bool isSearch = false;
-  static List<String> mainDataList = [];
-  List<String> newDataList = [];
+  List mainDataList = [];
+  List newDataList = [];
+  ServerAPI _serverAPI = ServerAPI();
 
   @override
   void initState() {
@@ -22,18 +23,19 @@ class _ListScreenState extends State<ListScreen> {
     _searchController.addListener(_onchangeSearch);
   }
 
-  _initialData() {
+  _initialData() async {
     EasyLoading.show(status: 'loading...');
     try {
-      Timer(Duration(seconds: 1), () {
-        setState(() {
-          mainDataList =
-              List<String>.generate(10, (i) => i.toString().padLeft(4, '0'));
-          newDataList = List.from(mainDataList);
-        });
-        EasyLoading.dismiss();
+      var resp = await _serverAPI.getEventsList();
+      var listx = resp['body']['getRaceVolunteer'];
+      setState(() {
+        mainDataList = listx;
+        newDataList = List.from(mainDataList);
       });
-    } catch (e) {}
+      EasyLoading.dismiss();
+    } catch (e) {
+      print('ERR $e');
+    }
   }
 
   @override
@@ -67,7 +69,7 @@ class _ListScreenState extends State<ListScreen> {
 
     _logout() async {
       EasyLoading.show(status: 'loading...');
-      await Future.delayed(Duration(seconds: 1));
+      await _serverAPI.signOut();
       EasyLoading.dismiss();
       Navigator.pop(context, 'login');
     }
@@ -156,10 +158,11 @@ class _ListScreenState extends State<ListScreen> {
             child: ListView.builder(
               itemCount: newDataList.length,
               itemBuilder: (context, index) {
-                final item = newDataList[index];
+                var item = newDataList[index];
+
                 return GestureDetector(
                   onTap: () => Navigator.pushNamed(context, 'detail',
-                      arguments: 'Park $item'),
+                      arguments: item['name']),
                   child: Card(
                     child: Column(
                       children: [
@@ -167,9 +170,9 @@ class _ListScreenState extends State<ListScreen> {
                           color: Colors.blue,
                           height: 120,
                           width: double.infinity,
-                          child: Image.asset(
-                            'assets/images/run1.jpg',
-                            fit: BoxFit.fitWidth,
+                          child: Image.network(
+                            item['event']['image'],
+                            fit: BoxFit.fill,
                             width: 240,
                           ),
                         ),
@@ -182,7 +185,7 @@ class _ListScreenState extends State<ListScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Park $item',
+                                    item['name'],
                                     style: TextStyle(
                                         fontSize: 22.0,
                                         fontWeight: FontWeight.bold),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parkrun_app/packages.dart';
-import 'package:parkrun_app/core/services/openid_connect.dart';
+import 'package:parkrun_app/core/services/server.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -12,32 +12,33 @@ class _LoginViewState extends State<LoginView> {
   bool isSubmit = false;
   final TextEditingController _controllerUsername = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
-  final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
-  OpenIDConnect _auth = OpenIDConnect();
+  ServerAPI _serverAPI = ServerAPI();
 
   @override
   void initState() {
     super.initState();
-    _initialize();
+    _initialData();
   }
 
-  _initialize() async {
-    // final storedRefreshToken = await secureStorage.read(key: 'refresh_token');
-    // print(storedRefreshToken);
-    // if (storedRefreshToken != null) {
-    //   EasyLoading.show(status: 'loading...');
-    //   var res = await _auth.initializeToken();
-    //   if (res) EasyLoading.showSuccess('Sign in successfully');
-    // }
+  _initialData() async {
+    EasyLoading.show(status: 'loading...');
+    try {
+      var res = await _serverAPI.currentUser();
+      if (res != null) Navigator.pushNamed(context, 'home');
+      EasyLoading.dismiss();
+    } catch (e) {}
   }
 
   // _login({String username, String password}) async {
   _login() async {
-    // _onelogin();
     EasyLoading.show(status: 'loading...');
-    bool res = await _auth.signIn();
-    if (res) {
+    var res = await _serverAPI.signIn('dang@thai.run', '123456');
+    // _controllerUsername.text, _controllerPassword.text);
+    if (res != null) {
       EasyLoading.showSuccess('Sign in successfully');
+      Navigator.pushNamed(context, 'home');
+      _controllerUsername.text = null;
+      _controllerPassword.text = null;
     } else
       EasyLoading.showError('Sign in failed');
   }
@@ -45,8 +46,9 @@ class _LoginViewState extends State<LoginView> {
   void _logout() async {
     print('logoutAction fn');
     EasyLoading.show(status: 'loading...');
-    await _auth.signOut();
-    EasyLoading.showSuccess('Sign in successfully');
+    await _serverAPI.signOut();
+    EasyLoading.showSuccess('Sign Out successfully');
+    Navigator.pushNamed(context, 'login');
   }
 
   _demologin() async {
@@ -99,6 +101,14 @@ class _LoginViewState extends State<LoginView> {
             MaterialButton(
               minWidth: 120,
               child: Text(
+                'Sign in',
+                style: styles.textTheme.button.copyWith(color: Colors.white),
+              ),
+              onPressed: () => _login(),
+            ),
+            MaterialButton(
+              minWidth: 120,
+              child: Text(
                 'Try Demo',
                 style: styles.textTheme.button.copyWith(color: Colors.white),
               ),
@@ -112,14 +122,22 @@ class _LoginViewState extends State<LoginView> {
               ),
               onPressed: () => _logout(),
             ),
-            MaterialButton(
-              minWidth: 120,
-              child: Text(
-                'QR',
-                style: styles.textTheme.button.copyWith(color: Colors.white),
-              ),
-              onPressed: () => Navigator.pushNamed(context, 'qr'),
-            ),
+            // MaterialButton(
+            //   minWidth: 120,
+            //   child: Text(
+            //     'currentUser',
+            //     style: styles.textTheme.button.copyWith(color: Colors.white),
+            //   ),
+            //   onPressed: () => _currentUser(),
+            // ),
+            // MaterialButton(
+            //   minWidth: 120,
+            //   child: Text(
+            //     'QR',
+            //     style: styles.textTheme.button.copyWith(color: Colors.white),
+            //   ),
+            //   onPressed: () => Navigator.pushNamed(context, 'qr'),
+            // ),
           ],
         ),
       ),

@@ -16,8 +16,6 @@ class Router {
       case 'detail':
         return MaterialPageRoute(
             builder: (_) => DetailView(id: settings.arguments));
-      case 'camera':
-        return MaterialPageRoute(builder: (_) => CameraView());
       case 'qr':
         return MaterialPageRoute(builder: (_) => QRScreen());
       case 'meter':

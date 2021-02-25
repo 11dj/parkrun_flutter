@@ -1,4 +1,4 @@
-package com.parkrunthailand.app
+package com.parkrunthailand.parkrun_app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -35,12 +35,12 @@ dependencies:
   flutter_appauth: ^0.9.1
   http:
   flutter_secure_storage: ^3.3.3
-  camera:
-  path_provider:
-  video_player:
   qr_code_scanner:
-  screenshot: ^0.3.0
   image: ^2.1.19
+  flutter_beep:
+  intl:
+  firebase_core: "0.7.0"
+  firebase_auth: "^0.20.1"
 
 dev_dependencies:
   flutter_test:
